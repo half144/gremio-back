@@ -6,18 +6,29 @@ import {
   Patch,
   Param,
   Delete,
+  Request,
+  UseGuards,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { ProdutosService } from './produtos.service';
 import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
 import { AvaliacaoDto } from './dto/avaliacao.dto';
+import { AuthGuard } from 'src/auth.guard';
 
 @Controller('produtos')
 export class ProdutosController {
   constructor(private readonly produtosService: ProdutosService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
-  create(@Body() createProdutoDto: CreateProdutoDto) {
+  create(@Body() createProdutoDto: CreateProdutoDto, @Request() req: any) {
+    if (!req.user.admin) {
+      throw new UnauthorizedException({
+        message: 'Você não tem permissão para criar produtos',
+      });
+    }
+
     return this.produtosService.create(createProdutoDto);
   }
 

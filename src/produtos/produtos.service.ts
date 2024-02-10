@@ -11,15 +11,6 @@ export class ProdutosService {
   constructor(@InjectModel(Produto.name) private produtos: Model<Produto>) {}
 
   async create(createProdutoDto: CreateProdutoDto) {
-    if (
-      !createProdutoDto.nome ||
-      !createProdutoDto.preco ||
-      !createProdutoDto.descricao ||
-      !createProdutoDto.categoria ||
-      !createProdutoDto.imagems
-    ) {
-      throw new BadRequestException('Preencha todos os campos');
-    }
     try {
       const product = new this.produtos({
         ...createProdutoDto,

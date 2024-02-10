@@ -13,15 +13,18 @@ export class Produto {
   categoria: string;
 
   @Prop({ required: true })
-  estoque: number;
+  tamanho: string;
 
   @Prop({ required: true })
+  estoque: number;
+
+  @Prop()
   unidadesRestantes: number;
 
   @Prop({ required: true })
   descricao: string;
 
-  @Prop({ type: [String], required: true })
+  @Prop({ type: [String] })
   imagems: string[];
 
   @Prop({ type: Array, default: [] })

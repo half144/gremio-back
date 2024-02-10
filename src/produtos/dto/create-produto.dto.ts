@@ -6,5 +6,6 @@ export class CreateProdutoDto {
   imagems: string[];
   avaliacoes: any[];
   vendidos: number;
+  tamanho: string;
   estoque: number;
 }
